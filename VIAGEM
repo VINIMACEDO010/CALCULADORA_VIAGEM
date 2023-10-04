@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Viagem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Viagem</h1>
+        <label for="Viagem">Viagem:</label>
+        <input type="text" id="nomeViagem" placeholder="Digite o nome da viagem">
+        <label for="kmPercorridos">Kilômetros percorridos:</label>
+        <input type="number" id="kmPercorridos" placeholder="Digite a distância em km">
+        <label for="litrosCombustivel">Litros de combustível gastos:</label>
+        <input type="number" id="litrosCombustivel" placeholder="Digite a quantidade de litros">
+        <label for="valorLitro">Valor do litro de combustível:</label>
+        <input type="number" id="valorLitro" placeholder="Digite o valor por litro (R$)">
+        <button onclick="calcularViagem()">Calcular</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calcularViagem() {
+            var nomeViagem = document.getElementById("nomeViagem").value;
+            var kmPercorridos = parseFloat(document.getElementById("kmPercorridos").value);
+            var litrosCombustivel = parseFloat(document.getElementById("litrosCombustivel").value);
+            var valorLitro = parseFloat(document.getElementById("valorLitro").value);
+
+            if (isNaN(kmPercorridos) || isNaN(litrosCombustivel) || isNaN(valorLitro) || kmPercorridos <= 0 || litrosCombustivel <= 0 || valorLitro <= 0) {
+                alert("Por favor, insira valores válidos para a viagem.");
+                return;
+            }
+
+            var autonomia = kmPercorridos / litrosCombustivel;
+            var valorViagem = litrosCombustivel * valorLitro;
+            var valorPorKm = valorViagem / kmPercorridos;
+
+            var resultado = "Em sua Viagem: " + nomeViagem + "<br>";
+            resultado += "Autonomia: " + autonomia.toFixed(2) + " km/litro<br>";
+            resultado += "Valor da Viagem: R$ " + valorViagem.toFixed(2) + "<br>";
+            resultado += "Valor por Quilômetro: R$ " + valorPorKm.toFixed(2);
+
+            document.getElementById("result").innerHTML = resultado;
+        }
+    </script>
+</body>
+</html>
